@@ -1,0 +1,43 @@
+ <% if @images.present? %>
+  <div class='row' style='margin-top: 25px'>
+    <div class='col-md-2'>
+      <h1 id='timerCounter'>10</h1>
+    </div>
+    <div id='image' class='col-md-2'>
+      <%= image_tag(@images.first, size: '100x100')%>
+    </div>
+    <div class='col-md-2'>
+      <%= render  'plays/form' %>
+    </div>
+  </div>
+
+  <div class='row' style='margin-top: 50px'>
+    <%= render  'plays/table' %>
+  </div>
+
+  <script type="text/javascript">
+    var images = <%=raw @images.as_json %>
+    const timer = (function () {
+      let timeCounter = 9;
+      let imageCounter = 1;
+      return function timer() {
+        document.getElementById('play_counter').value = timeCounter;
+        document.getElementById('play_img_url').value = images[imageCounter];
+
+        document.getElementById('timerCounter').innerText = timeCounter--;
+        document.getElementById('image').innerHTML = `<img src="${images[imageCounter++]}" width="100" height="100">`;
+
+        if(timeCounter === 0) {
+          timeCounter =  10;
+          imageCounter = 0;
+        }
+      }
+    })()
+
+    setInterval(timer, 1000)
+  </script>
+<% else %>
+  <p>
+    Please add some images before proceed <%= link_to 'Add Image', new_image_path %>
+  </p>
+<% end %>
