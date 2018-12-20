@@ -7,7 +7,7 @@ class ImagesController < ApplicationController
 
   def index
     @images = image_array_genrator(Image.random)
-    @plays = [] # Todo: need to update this
+    @plays = Play.all
   end
 
   def create

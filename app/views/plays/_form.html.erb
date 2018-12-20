@@ -1,0 +1,5 @@
+<%= form_tag '/plays', remote: :true do %>
+  <%= hidden_field_tag 'play[counter]', 10 %>
+  <%= hidden_field_tag 'play[img_url]', @images.first %>
+  <%= submit_tag 'Play', class: 'btn btn-primary', style: 'margin-top: 25px;' %>
+<% end %>
